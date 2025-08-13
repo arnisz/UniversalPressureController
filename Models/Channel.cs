@@ -1,7 +1,9 @@
+using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+
 namespace UniversalPressureController.Models
 {
-    #region Models
-    
     /// <summary>
     /// Kanal-Datenmodell für Druckregler
     /// </summary>
@@ -92,7 +94,7 @@ namespace UniversalPressureController.Models
         }
     }
 
-        public enum ChannelStatus
+    public enum ChannelStatus
     {
         Idle,
         Running,
