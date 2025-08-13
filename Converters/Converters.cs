@@ -2,8 +2,9 @@ using System;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
+using UniversalPressureController.Models;
 
-namespace MensorCPCController.Converters
+namespace UniversalPressureController.Converters
 {
     public class BoolToColorConverter : IValueConverter
     {

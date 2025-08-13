@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace UniversalPressureController.Models
 {
     public class AppConfiguration
@@ -10,7 +12,7 @@ namespace UniversalPressureController.Models
         public bool LogCommunication { get; set; } = false;
         public string LogPath { get; set; } = @".\Logs";
     }
-    
+
     public class ChannelConfig
     {
         public int Id { get; set; }
@@ -21,5 +23,4 @@ namespace UniversalPressureController.Models
         public string Unit { get; set; } = "bar";
         public bool Enabled { get; set; } = true;
     }
- 
 }
