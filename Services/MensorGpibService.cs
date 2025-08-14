@@ -30,7 +30,7 @@ namespace UniversalPressureController.Services
                     {
                         _resourceManager = new ResourceManager();
                         _session = (MessageBasedSession)_resourceManager.Open(gpibAddress);
-                        _session.Timeout = 5000;
+                        _session.TimeoutMilliseconds = 5000;
                         _session.TerminationCharacterEnabled = true;
 
                         _session.RawIO.Write("*IDN?\n");
