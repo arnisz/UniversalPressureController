@@ -61,7 +61,7 @@ Die Anwendung dient zur Steuerung und Überwachung eines Druck Controllers (zun�
 ## 4. Technologien
 
 - **Programmiersprache:** C\#
-- **Frameworks:** .NET (z\. B\. .NET 6 oder höher)
+- **Frameworks:** .NET 10 (LTS), WPF (`net10.0-windows`)
 - **Protokoll:** GPIB (General Purpose Interface Bus)
 
 ---

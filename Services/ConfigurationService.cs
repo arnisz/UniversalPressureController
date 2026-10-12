@@ -29,7 +29,7 @@ namespace UniversalPressureController.Services
             try
             {
                 string json = File.ReadAllText(_configPath);
-                return JsonConvert.DeserializeObject<AppConfiguration>(json);
+                return JsonConvert.DeserializeObject<AppConfiguration>(json) ?? CreateDefaultConfiguration();
             }
             catch
             {

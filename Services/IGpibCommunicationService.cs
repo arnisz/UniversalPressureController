@@ -10,8 +10,8 @@ namespace UniversalPressureController.Services
     public interface IGpibCommunicationService
     {
         bool IsConnected { get; }
-        event EventHandler<string> MessageReceived;
-        event EventHandler<string> ErrorOccurred;
+        event EventHandler<string>? MessageReceived;
+        event EventHandler<string>? ErrorOccurred;
 
         Task<bool> ConnectAsync(string gpibAddress, CancellationToken cancellationToken = default);
         Task DisconnectAsync(CancellationToken cancellationToken = default);

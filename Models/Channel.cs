@@ -10,7 +10,7 @@ namespace UniversalPressureController.Models
     public class Channel : INotifyPropertyChanged
     {
         private int _id;
-        private string _name;
+        private string _name = string.Empty;
         private double _setpoint;
         private double _actualValue;
         private double _minValue;
@@ -86,9 +86,9 @@ namespace UniversalPressureController.Models
             set { _lastUpdate = value; OnPropertyChanged(); } 
         }
         
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
         
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

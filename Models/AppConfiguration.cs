@@ -16,7 +16,7 @@ namespace UniversalPressureController.Models
     public class ChannelConfig
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
         public double MinValue { get; set; }
         public double MaxValue { get; set; }
         public double DefaultSetpoint { get; set; }

@@ -19,13 +19,13 @@ namespace UniversalPressureController.ViewModels
         private readonly IGpibCommunicationService _gpibService;
         private readonly ConfigurationService _configService;
         private readonly DispatcherTimer _updateTimer;
-        private AppConfiguration _configuration;
+        private AppConfiguration _configuration = new();
         private bool _isConnected;
-        private string _statusMessage;
-        private string _gpibAddress;
-        private ObservableCollection<Channel> _channels;
-        private Channel _selectedChannel;
-        private ObservableCollection<string> _logMessages;
+        private string _statusMessage = string.Empty;
+        private string _gpibAddress = string.Empty;
+        private ObservableCollection<Channel> _channels = new();
+        private Channel? _selectedChannel;
+        private ObservableCollection<string> _logMessages = new();
 
         public bool IsConnected
         {
@@ -51,7 +51,7 @@ namespace UniversalPressureController.ViewModels
             set => SetField(ref _channels, value);
         }
 
-        public Channel SelectedChannel
+        public Channel? SelectedChannel
         {
             get => _selectedChannel;
             set => SetField(ref _selectedChannel, value);
@@ -146,7 +146,7 @@ namespace UniversalPressureController.ViewModels
             }
         }
 
-        private async Task StartChannel(Channel channel)
+        private async Task StartChannel(Channel? channel)
         {
             if (channel == null) return;
 
@@ -165,7 +165,7 @@ namespace UniversalPressureController.ViewModels
             }
         }
 
-        private async Task StopChannel(Channel channel)
+        private async Task StopChannel(Channel? channel)
         {
             if (channel == null) return;
 
@@ -182,7 +182,7 @@ namespace UniversalPressureController.ViewModels
             }
         }
 
-        private async Task VentChannel(Channel channel)
+        private async Task VentChannel(Channel? channel)
         {
             if (channel == null) return;
 
@@ -203,7 +203,7 @@ namespace UniversalPressureController.ViewModels
             }
         }
 
-        private async Task SetSetpoint(Channel channel)
+        private async Task SetSetpoint(Channel? channel)
         {
             if (channel == null || !channel.IsActive) return;
 

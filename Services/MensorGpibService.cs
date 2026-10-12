@@ -12,15 +12,15 @@ namespace UniversalPressureController.Services
     /// </summary>
     public class MensorGpibService : IGpibCommunicationService, IDisposable, IAsyncDisposable
     {
-        private MessageBasedSession _session;
-        private ResourceManager _resourceManager;
+        private MessageBasedSession? _session;
+        private ResourceManager? _resourceManager;
         private readonly SemaphoreSlim _io = new(1, 1);
         private bool _disposed;
 
         public bool IsConnected => _session != null;
 
-        public event EventHandler<string> MessageReceived;
-        public event EventHandler<string> ErrorOccurred;
+        public event EventHandler<string>? MessageReceived;
+        public event EventHandler<string>? ErrorOccurred;
 
         public async Task<bool> ConnectAsync(string gpibAddress, CancellationToken ct = default)
         {
@@ -28,16 +28,17 @@ namespace UniversalPressureController.Services
             try
             {
                 _resourceManager = new ResourceManager();
-                _session = (MessageBasedSession)_resourceManager.Open(gpibAddress);
-                _session.TimeoutMilliseconds = 5000;
-                _session.TerminationCharacterEnabled = true; // \n als Terminator
+                var session = (MessageBasedSession)_resourceManager.Open(gpibAddress);
+                _session = session;
+                session.TimeoutMilliseconds = 5000;
+                session.TerminationCharacterEnabled = true; // \n als Terminator
 
-                _session.RawIO.Write("*IDN?\n");
-                string id = _session.RawIO.ReadString();
+                session.RawIO.Write("*IDN?\n");
+                string id = session.RawIO.ReadString();
                 MessageReceived?.Invoke(this, $"Connected to: {id}");
 
-                _session.RawIO.Write("*RST\n");
-                _session.RawIO.Write("*CLS\n");
+                session.RawIO.Write("*RST\n");
+                session.RawIO.Write("*CLS\n");
                 return true;
             }
             catch (Exception ex)
@@ -78,8 +79,9 @@ namespace UniversalPressureController.Services
             await _io.WaitAsync(ct);
             try
             {
-                _session.RawIO.Write($"{command}\n");
-                string response = _session.RawIO.ReadString();
+                var session = _session ?? throw new InvalidOperationException("Not connected");
+                session.RawIO.Write($"{command}\n");
+                string response = session.RawIO.ReadString();
                 MessageReceived?.Invoke(this, $"Query: {command} -> {response}");
                 return response.Trim();
             }
@@ -101,7 +103,8 @@ namespace UniversalPressureController.Services
             await _io.WaitAsync(ct);
             try
             {
-                _session.RawIO.Write($"{command}\n");
+                var session = _session ?? throw new InvalidOperationException("Not connected");
+                session.RawIO.Write($"{command}\n");
                 MessageReceived?.Invoke(this, $"Command sent: {command}");
             }
             catch (Exception ex)
